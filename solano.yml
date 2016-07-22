@@ -1,0 +1,27 @@
+php:
+  php_version: "5.6"
+
+# Tests will be determined by `enumeration` hook script
+# http://docs.solanolabs.com/Beta/custom-enumeration/
+
+# Setup hooks (http://docs.solanolabs.com/Setup/setup-hooks/)
+hooks:
+  pre_setup: composer install
+  enumeration: ./solano-test-enumeration.php
+  worker_setup: echo "Setup databases or other worker-specific tasks"
+  post_build: echo "Deploy or other post-build tasks"
+
+# Build profiles (http://docs.solanolabs.com/Beta/build-profiles/)
+profiles:
+  default:      # All tests
+    environment:
+      'NOT_APPLICABLE': 'N/A' # Just set to ensure the 'default' profile is parsed properly.
+  group_0:      # Only @group = group0 annotated classes/tests will be enumerated and run
+    environment:
+      'INCLUDE_GROUPS': 'group0'
+  group_A:      # Only @group = groupA annotated classes/tests will be enumerated and run
+    environment:
+      'INCLUDE_GROUPS': 'groupA'
+  group_0_A:      # Only @group = group0 and/or groupA annotated classes/tests will be enumerated and run
+    environment:
+      'INCLUDE_GROUPS': 'group0,groupA'

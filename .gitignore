@@ -1,0 +1,4 @@
+.solano*
+vendor/
+solano-phpunit-test-list.txt
+test_list.json
